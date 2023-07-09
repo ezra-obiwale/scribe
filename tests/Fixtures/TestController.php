@@ -179,6 +179,16 @@ class TestController extends Controller
     }
 
     /**
+     * @noTryOut
+     * @responseField user_id string The ID of the newly created user
+     * @responseField creator_id string The ID of the creator
+     */
+    public function withoutTryOut()
+    {
+        return '';
+    }
+
+    /**
      * @responseField user_id string The ID of the newly created user
      * @responseField creator_id string The ID of the creator
      */
@@ -585,7 +595,7 @@ class TestController extends Controller
     {
         return null;
     }
-    
+
     public function withInjectedModelFullParamName(TestPost $testPost)
     {
         return null;

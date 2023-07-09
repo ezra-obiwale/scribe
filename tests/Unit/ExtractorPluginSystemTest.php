@@ -103,6 +103,7 @@ class ExtractorPluginSystemTest extends TestCase
             'title' => 'dummy',
             'description' => 'dummy',
             'authenticated' => false,
+            'tryOut' => true,
         ];
         $this->assertArraySubset($expectedMetadata, $parsed->metadata->toArray());
     }
@@ -125,6 +126,7 @@ class ExtractorPluginSystemTest extends TestCase
             'title' => '',
             'description' => 'dummy',
             'authenticated' => false,
+            'tryOut' => true,
         ];
         $this->assertArraySubset($expectedMetadata, $parsed->metadata->toArray());
     }
@@ -177,6 +179,7 @@ class ExtractorPluginSystemTest extends TestCase
             'title' => 'dummy',
             'description' => 'dummy',
             'authenticated' => false,
+            'tryOut' => true,
         ];
         $this->assertArraySubset($expectedMetadata, $parsed->metadata->toArray());
     }
@@ -230,6 +233,7 @@ class NotDummyMetadataStrategy extends Strategy
             'title' => 'notdummy',
             'description' => 'notdummy',
             'authenticated' => true,
+            'tryOut' => false,
         ];
     }
 }
@@ -243,6 +247,7 @@ class PartialDummyMetadataStrategy1 extends Strategy
             'title' => 'dummy',
             'description' => 'dummy',
             'authenticated' => false,
+            'tryOut' => true,
         ];
     }
 }

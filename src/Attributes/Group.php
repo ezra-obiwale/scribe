@@ -12,6 +12,8 @@ class Group
         public ?string $description = '',
         /** You can use the separate #[Authenticated] attribute, or pass authenticated: false to this. */
         public ?bool   $authenticated = null,
+        /** You can use the separate #[TryOut] attribute, or pass tryOut: false to this. */
+        public ?bool   $tryOut = null,
     ){
     }
 
@@ -24,6 +26,10 @@ class Group
 
         if (!is_null($this->authenticated)) {
             $data["authenticated"] = $this->authenticated;
+        }
+
+        if (!is_null($this->tryOut)) {
+            $data["tryOut"] = $this->tryOut;
         }
 
         return $data;

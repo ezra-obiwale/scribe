@@ -185,6 +185,11 @@ class OutputEndpointData extends BaseDTO
         return $this->metadata->authenticated;
     }
 
+    public function canTryOut(): bool
+    {
+        return $this->metadata->tryOut;
+    }
+
     public function hasJsonBody(): bool
     {
         if ($this->hasFiles() || empty($this->nestedBodyParameters))

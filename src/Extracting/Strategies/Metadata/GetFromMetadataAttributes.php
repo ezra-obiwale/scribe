@@ -6,13 +6,15 @@ use Knuckles\Camel\Extraction\ExtractedEndpointData;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Endpoint;
 use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\NoTryOut;
 use Knuckles\Scribe\Attributes\Subgroup;
+use Knuckles\Scribe\Attributes\TryOut;
 use Knuckles\Scribe\Attributes\Unauthenticated;
 use Knuckles\Scribe\Extracting\ParamHelpers;
 use Knuckles\Scribe\Extracting\Strategies\PhpAttributeStrategy;
 
 /**
- * @extends PhpAttributeStrategy<Group|Subgroup|Endpoint|Authenticated>
+ * @extends PhpAttributeStrategy<Group|Subgroup|Endpoint|Authenticated|TryOut>
  */
 class GetFromMetadataAttributes extends PhpAttributeStrategy
 {
@@ -24,6 +26,8 @@ class GetFromMetadataAttributes extends PhpAttributeStrategy
         Endpoint::class,
         Authenticated::class,
         Unauthenticated::class,
+        TryOut::class,
+        NoTryOut::class,
     ];
 
     protected function extractFromAttributes(

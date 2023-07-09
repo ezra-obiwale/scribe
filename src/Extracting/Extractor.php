@@ -107,7 +107,8 @@ class Extractor
     {
         $endpointData->metadata = new Metadata([
             'groupName' => $this->config->get('groups.default', ''),
-            "authenticated" => $this->config->get("auth.default", false),
+            'authenticated' => $this->config->get('auth.default', false),
+            'tryOut' => $this->config->get('try_it_out.enabled', true),
         ]);
 
         $this->iterateThroughStrategies('metadata', $endpointData, $rulesToApply, function ($results) use ($endpointData) {

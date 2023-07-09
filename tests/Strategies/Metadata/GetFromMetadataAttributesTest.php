@@ -13,6 +13,8 @@ use Knuckles\Scribe\Extracting\Strategies\Metadata\GetFromMetadataAttributes;
 use Knuckles\Scribe\Tools\DocumentationConfig;
 use PHPUnit\Framework\TestCase;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
+use Knuckles\Scribe\Attributes\NoTryOut;
+use Knuckles\Scribe\Attributes\TryOut;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -109,6 +111,23 @@ class UseMetadataAttributesTest extends TestCase
         $this->assertArraySubset([
             "title" => "Endpoint C"
         ], $results);
+
+        $endpoint = $this->endpoint(function (ExtractedEndpointData $e) {
+            $e->controller = new ReflectionClass(MetadataAttributesTestController4::class);
+            $e->method = $e->controller->getMethod('d1');
+        });
+        $results = $this->fetch($endpoint);
+        $this->assertArraySubset([
+            "tryOut" => false,
+        ], $results);
+        $endpoint = $this->endpoint(function (ExtractedEndpointData $e) {
+            $e->controller = new ReflectionClass(MetadataAttributesTestController4::class);
+            $e->method = $e->controller->getMethod('d2');
+        });
+        $results = $this->fetch($endpoint);
+        $this->assertArraySubset([
+            "tryOut" => true,
+        ], $results);
     }
 
     protected function fetch($endpoint): array
@@ -179,6 +198,19 @@ class MetadataAttributesTestController2
 class MetadataAttributesTestController3
 {
     public function c1()
+    {
+    }
+}
+
+#[NoTryOut]
+class MetadataAttributesTestController4
+{
+    public function d1()
+    {
+    }
+
+    #[TryOut]
+    public function d2()
     {
     }
 }

@@ -30,9 +30,15 @@ class GetFromDocBlocks extends Strategy
             'title' => $title ?: $methodDocBlock->getShortDescription(),
             'description' => $methodDocBlock->getLongDescription()->getContents(),
         ];
+
         if (!is_null($authStatus = $this->getAuthStatusFromDocBlock($methodDocBlock, $classDocBlock))) {
             $metadata['authenticated'] = $authStatus;
         }
+
+        if (!is_null($tryOutStatus = $this->getTryOutStatusFromDocBlock($methodDocBlock, $classDocBlock))) {
+            $metadata['tryOut'] = $tryOutStatus;
+        }
+
         return $metadata;
     }
 
@@ -50,6 +56,23 @@ class GetFromDocBlocks extends Strategy
 
         return $classDocBlock
             ? $this->getAuthStatusFromDocBlock($classDocBlock)
+            : null;
+    }
+
+    protected function getTryOutStatusFromDocBlock(DocBlock $methodDocBlock, DocBlock $classDocBlock = null): ?bool
+    {
+        foreach ($methodDocBlock->getTags() as $tag) {
+            if (strtolower($tag->getName()) === 'tryout') {
+                return true;
+            }
+
+            if (strtolower($tag->getName()) === 'notryout') {
+                return false;
+            }
+        }
+
+        return $classDocBlock
+            ? $this->getTryOutStatusFromDocBlock($classDocBlock)
             : null;
     }
 
