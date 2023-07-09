@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  lib:
+    image: knuckleswtf/scribe
+    build:
+      context: .
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/html
